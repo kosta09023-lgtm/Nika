@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Для Вероники 🐱💖</title>
+    <style>
+        @import url('https://googleapis.com');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        html, body {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #ffdde1 0%, #ee9ca7 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .bg-kittens {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.25;
+            font-size: 2.3rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-content: space-around;
+            overflow: hidden;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 35px 25px;
+            max-width: 460px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(214, 51, 108, 0.2);
+            border: 3px solid #ffb3c6;
+            position: relative;
+            z-index: 1;
+        }
+
+        .kitten-avatar {
+            font-size: 4.2rem;
+            margin-bottom: 15px;
+            display: inline-block;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        h1 {
+            color: #d6336c;
+            font-size: 1.7rem;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .error-msg {
+            color: #e03131;
+            font-weight: 700;
+            margin-bottom: 15px;
+            min-height: 24px;
+            font-size: 0.95rem;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        button {
+            background: #ff758f;
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: 0 5px 15px rgba(255, 117, 143, 0.4);
+            flex: 1;
+            max-width: 150px;
+        }
+
+        button:active {
+            transform: scale(0.96);
+        }
+
+        button.error-btn {
+            background: #e03131 !important;
+            box-shadow: 0 0 15px rgba(224, 49, 49, 0.7) !important;
+            animation: shake 0.4s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            50% { transform: translateX(8px); }
+            75% { transform: translateX(-8px); }
+        }
+
+        .final-page {
+            display: none;
+            text-align: left;
+        }
+
+        .final-header {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .music-player {
+            background: #ffe5ec;
+            border: 2px solid #ffb3c6;
+            border-radius: 20px;
+            padding: 12px 15px;
+            margin-bottom: 18px;
+            text-align: center;
+        }
+
+        .music-title {
+            color: #c9184a;
+            font-weight: 800;
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+        }
+
+        audio {
+            width: 100%;
+            height: 36px;
+            outline: none;
+        }
+
+        .text-box {
+            background: #fff0f3;
+            border-radius: 20px;
+            padding: 18px;
+            margin-bottom: 16px;
+            border-left: 5px solid #ff4d6d;
+            color: #590d22;
+            font-size: 1rem;
+            line-height: 1.55;
+        }
+
+        .text-box:last-of-type {
+            margin-bottom: 0;
+            background: #ffe5ec;
+            border-left-color: #c9184a;
+        }
+
+        .kittens-footer {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-top: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-kittens">
+        <span>🐱</span><span>🐾</span><span>😻</span><span>💖</span><span>🐈</span>
+        <span>🎀</span><span>😽</span><span>🐾</span><span>🐱</span><span>💕</span>
+        <span>🐈‍⬛</span><span>🌸</span><span>😻</span><span>🐾</span><span>🐱</span>
+    </div>
+
+    <div class="card">
+        <div id="quiz-container">
+            <div class="kitten-avatar" id="kitten-icon">🐱</div>
+            <h1 id="question-text">Вас зовут Вероника?</h1>
+            <div class="error-msg" id="error-text"></div>
+            <div class="buttons">
+                <button id="btn-yes" onclick="handleAnswer(true)">Да</button>
+                <button id="btn-no" onclick="handleAnswer(false)">Нет</button>
+            </div>
+        </div>
+
+        <div id="final-container" class="final-page">
+            <div class="final-header">
+                <div class="kitten-avatar">😻💖</div>
+                <h1>Для самой прекрасной!</h1>
+            </div>
+
+            <div class="music-player">
+                <div class="music-title">🎵 emosl4t696 — я люблю тебя</div>
+                <audio id="bg-music" controls loop preload="auto">
+                    <source src="song.mp3" type="audio/mpeg">
+                </audio>
+            </div>
+            
+            <div class="text-box">
+                Ты самая лучшая, красивая, умная, добрая, милая, элегантная, смешная, изящная, утонченная, стильная, скромная, позитивная, уверенная, сильная, любящая, романтичная, смелая, заботливая, позитивная, очаровательная.
+            </div>
+
+            <div class="text-box">
+                Ник, после знакомства с тобой моя жизнь кардинально поменялась. Я начал принимать себя, почувствовал любовь, заботу. Мне очень повезло с тобой и я хочу все свое свободное время стараться проводить с тобой. Я не могу словами выразить свою любовь к тебе.
+            </div>
+
+            <div class="kittens-footer">
+                🐾 🐈 💕 🐈‍⬛ 🐾
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            { text: "Вас зовут Вероника?", icon: "🐱" },
+            { text: "Есть ли у вас парень?", icon: "😽" },
+            { text: "Любите ли вы своего парня?", icon: "😻" },
+            { text: "Вашего парня зовут Костя?", icon: "🐈" },
+            { text: "Любит ли вас Костя?", icon: "💖" }
+        ];
+
+        let currentStep = 0;
+
+        const quizContainer = document.getElementById("quiz-container");
+        const finalContainer = document.getElementById("final-container");
+        const questionText = document.getElementById("question-text");
+        const kittenIcon = document.getElementById("kitten-icon");
+        const errorText = document.getElementById("error-text");
+        const btnYes = document.getElementById("btn-yes");
+        const btnNo = document.getElementById("btn-no");
+        const bgMusic = document.getElementById("bg-music");
+
+        function updateUI() {
+            btnYes.classList.remove("error-btn");
+            btnNo.classList.remove("error-btn");
+            errorText.textContent = "";
+
+            if (currentStep < questions.length) {
+                questionText.textContent = questions[currentStep].text;
+                kittenIcon.textContent = questions[currentStep].icon;
+            } else {
+                quizContainer.style.display = "none";
+                finalContainer.style.display = "block";
+                bgMusic.volume = 0.8;
+                bgMusic.play().catch(function(error) {
+                    console.log("Автозапуск:", error);
+                });
+            }
+        }
+
+        function handleAnswer(isYes) {
+            if (isYes) {
+                currentStep++;
+                updateUI();
+            } else {
+                if (currentStep === 0) {
+                    btnYes.classList.add("error-btn");
+                    btnNo.classList.add("error-btn");
+                    kittenIcon.textContent = "😿";
+                    errorText.textContent = "Ой! Подумай еще раз и выбери правильный ответ 🐾";
+                } else {
+                    currentStep = 0;
+                    updateUI();
+                    kittenIcon.textContent = "🙀";
+                    errorText.textContent = "Неверный ответ! Придется начать сначала 🐱";
+                }
+            }
+        }
+    </script>
+</body>
+</html>
